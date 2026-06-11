@@ -1,0 +1,29 @@
+{
+  "short_name": "SkillThis",
+  "name": "SkillThis - AI-Powered Self-Improvement RPG",
+  "description": "Gamify your real-life skills and complete quests in a premium Liquid Glass RPG environment.",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0a0a1e",
+  "theme_color": "#0a0a1e",
+  "display": "standalone",
+  "orientation": "portrait-primary"
+}
