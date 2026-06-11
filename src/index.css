@@ -1,0 +1,375 @@
+/* 
+  LifeRPG - Liquid Glass Custom Design System
+  Inspired by Apple's software aesthetics: translucent panels, organic blurs, neon specularity.
+*/
+
+:root {
+  /* Dynamic Theme Variables - Overwritten by active cosmetic themes */
+  /* Default is Crimson Neon (#FF3131) */
+  --bg-gradient: radial-gradient(circle at 50% 50%, #3e0b0f 0%, #150205 70%, #060101 100%);
+  --neon-primary: #ff3131;
+  --neon-secondary: #ff6a00;
+  --neon-accent: #ff007b;
+  --neon-glow: rgba(255, 49, 49, 0.5);
+  
+  /* Glassmorphism Constants */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.06);
+  --glass-bg-heavy: rgba(13, 10, 30, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-glow: rgba(255, 49, 49, 0.25);
+  --glass-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    inset 0 10px 20px rgba(255, 255, 255, 0.05);
+  --glass-shadow-heavy:
+    0 15px 45px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.15),
+    inset 0 20px 30px rgba(255, 255, 255, 0.08);
+
+  /* Fonts */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Basic Colors */
+  --text-main: #ffffff;
+  --text-sub: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  
+  /* Difficulties */
+  --easy-color: #00e676;
+  --easy-glow: rgba(0, 230, 118, 0.3);
+  --medium-color: #ffb300;
+  --medium-glow: rgba(255, 179, 0, 0.3);
+  --hard-color: #ff1744;
+  --hard-glow: rgba(255, 23, 68, 0.3);
+}
+
+/* Built-in Theme Overrides */
+[data-theme="cobalt"] {
+  --bg-gradient: radial-gradient(circle at 50% 50%, #1e1145 0%, #08041a 70%, #03010b 100%);
+  --neon-primary: #8f00ff;
+  --neon-secondary: #00f0ff;
+  --neon-accent: #ff007f;
+  --neon-glow: rgba(143, 0, 255, 0.5);
+  --glass-border-glow: rgba(0, 240, 255, 0.25);
+}
+
+[data-theme="emerald"] {
+  --bg-gradient: radial-gradient(circle at 50% 50%, #0d382b 0%, #03140f 70%, #010705 100%);
+  --neon-primary: #00e676;
+  --neon-secondary: #00f0ff;
+  --neon-accent: #b2ff59;
+  --neon-glow: rgba(0, 230, 118, 0.5);
+  --glass-border-glow: rgba(0, 230, 118, 0.25);
+}
+
+[data-theme="crimson"] {
+  --bg-gradient: radial-gradient(circle at 50% 50%, #4a0e1b 0%, #170308 70%, #090103 100%);
+  --neon-primary: #ff1744;
+  --neon-secondary: #ff8f00;
+  --neon-accent: #d500f9;
+  --neon-glow: rgba(255, 23, 68, 0.5);
+  --glass-border-glow: rgba(255, 23, 68, 0.25);
+}
+
+[data-theme="cyber"] {
+  --bg-gradient: radial-gradient(circle at 50% 50%, #2e2609 0%, #120f03 70%, #050401 100%);
+  --neon-primary: #ffd600;
+  --neon-secondary: #ff8008;
+  --neon-accent: #00e5ff;
+  --neon-glow: rgba(255, 214, 0, 0.5);
+  --glass-border-glow: rgba(255, 214, 0, 0.25);
+}
+
+[data-theme="amethyst"] {
+  --bg-gradient: radial-gradient(circle at 50% 50%, #3a0d45 0%, #14031a 70%, #07010a 100%);
+  --neon-primary: #e040fb;
+  --neon-secondary: #651fff;
+  --neon-accent: #00e5ff;
+  --neon-glow: rgba(224, 64, 251, 0.5);
+  --glass-border-glow: rgba(224, 64, 251, 0.25);
+}
+
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.02); }
+}
+
+@keyframes pulse-neon {
+  0%, 100% { box-shadow: 0 0 10px var(--neon-glow), var(--glass-shadow); }
+  50% { box-shadow: 0 0 25px var(--neon-glow), 0 0 5px var(--neon-secondary), var(--glass-shadow); }
+}
+
+@keyframes card-entry {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes modal-entry {
+  from { opacity: 0; transform: translate(-50%, -45%) scale(0.93); filter: blur(10px); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
+}
+
+@keyframes spin-sync {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes levelup-beam {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Global Reset & Base Setup */
+* {
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+  background-attachment: fixed;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  border: 1px solid var(--glass-border);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  max-width: 100vw;
+}
+
+/* Utility Styles for Glassmorphism */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  background: var(--glass-bg-hover);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-panel-heavy {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  box-shadow: var(--glass-shadow-heavy);
+}
+
+.glass-button {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  color: var(--text-main);
+  padding: 12px 24px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-button::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: none;
+}
+
+.glass-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: var(--glass-border-glow);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 10px var(--glass-border-glow);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.glass-button:hover::after {
+  left: 100%;
+  transition: all 0.75s ease-in-out;
+}
+
+.glass-button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.glass-button.accent {
+  background: linear-gradient(135deg, var(--neon-primary) 0%, rgba(143,0,255,0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(143, 0, 255, 0.3);
+}
+.glass-button.accent:hover {
+  background: linear-gradient(135deg, var(--neon-primary) 0%, rgba(143,0,255,0.6) 100%);
+  border-color: rgba(255,255,255,0.3);
+  box-shadow: 0 12px 28px rgba(143, 0, 255, 0.45), 0 0 12px var(--neon-secondary);
+}
+
+.glass-input {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  color: var(--text-main);
+  padding: 14px 20px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.glass-input:focus {
+  border-color: var(--neon-secondary);
+  box-shadow: 
+    inset 0 2px 5px rgba(0,0,0,0.3),
+    0 0 12px rgba(0, 240, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.glass-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Floating Glass Avatar Wrapper */
+.glass-avatar-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 80%);
+  border: 2px stroke var(--glass-border);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.35),
+    inset 0 4px 6px rgba(255, 255, 255, 0.2),
+    inset 0 -4px 6px rgba(0, 240, 255, 0.15);
+  animation: float 5s ease-in-out infinite;
+}
+
+.glass-avatar-container::after {
+  content: '';
+  position: absolute;
+  top: 8px; left: 20px;
+  width: 25px; height: 12px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50% / 100% 100% 0 0;
+  transform: rotate(-15deg);
+}
+
+.glass-avatar-emoji {
+  font-size: 3.2rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  user-select: none;
+}
+
+/* Card Entry Transition Wrapper */
+.animate-card {
+  animation: card-entry 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Neon Text Utilities */
+.neon-text-primary {
+  color: var(--text-main);
+  font-family: var(--font-display);
+  text-shadow: 0 0 8px var(--neon-glow);
+}
+
+.neon-text-secondary {
+  color: var(--neon-secondary);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+/* Skeleton Loading Loader */
+.skeleton-bar {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-card {
+  height: 120px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Responsive Grid layouts */
+.main-app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  padding: 24px;
+  padding-bottom: 110px; /* Safe padding for bottom nav on mobile */
+}
+
+@media (min-width: 1024px) {
+  .main-app-container {
+    flex-direction: row;
+    gap: 32px;
+    padding-bottom: 24px;
+    padding-left: 280px; /* Space for fixed sidebar */
+  }
+}
